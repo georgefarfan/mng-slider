@@ -1,0 +1,81 @@
+.rangeSlider {
+  width: 100%;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.labels {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 18px;
+}
+
+.limits {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+/* Track-Values  ands other styles */
+
+.track-values {
+  position: relative;
+  height: 6px;
+  background-color: #c1c1c1;
+  border-radius: 3px;
+  width: 100%;
+  margin: 0 10px;
+}
+
+.track-values .rangeFill {
+  position: absolute;
+  height: 100%;
+  background-color: #383838;
+  border-radius: 3px;
+}
+
+.track-values .handle:hover .value-tooltip {
+  opacity: 1;
+  transform: translate(-50%, -100%);
+}
+
+.value-tooltip {
+  position: absolute;
+  top: -5px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #383838;
+  color: #fff;
+  padding: 4px;
+  border-radius: 4px;
+  font-size: 12px;
+  white-space: nowrap;
+  opacity: 0;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.track-values .handle {
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  background-color: #383838;
+  border-radius: 50%;
+  cursor: grab;
+  transform: translate(-50%, -5px);
+  transition: transform 0.2s ease;
+}
+
+.track-values .handle:hover {
+  transform: translate(-50%, -5px) scale(1.5);
+  border: #0f0f0f 1px solid;
+  background-color: #3b3b3b;
+}
+
+input {
+  width: 60px;
+  text-align: center;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  padding: 4px;
+}
