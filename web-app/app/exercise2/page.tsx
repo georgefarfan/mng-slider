@@ -7,18 +7,19 @@ export default function Exercise2Page() {
   const [ranges, setRanges] = useState<{ min: number; max: number } | null>(
     null
   );
-  const [rangeValues, setRangeValues] = useState([]);
+  const [rangeValues, setRangeValues] = useState<number[]>([]);
 
   useEffect(() => {
     const fetchFixedRanges = async () => {
       try {
-        const data = await getFixedRanges();
+        const result = await getFixedRanges();
+
         setRanges({
-          min: data[0],
-          max: data[data.length - 1],
+          min: result?.min,
+          max: result?.max,
         });
 
-        setRangeValues(data);
+        setRangeValues(result?.data);
       } catch (error) {
         console.error("Error in obtaining ranks:", error);
       }
@@ -31,17 +32,15 @@ export default function Exercise2Page() {
     <section>
       <h2>Exercise 2</h2>
       <div className="container">
-        <p>
-          {ranges ? (
-            <RangeSlider
-              rangeValues={rangeValues}
-              initialMin={ranges.min}
-              initialMax={ranges.max}
-            />
-          ) : (
-            <p>No rank data found.</p>
-          )}
-        </p>
+        {ranges ? (
+          <RangeSlider
+            rangeValues={rangeValues}
+            initialMin={ranges.min}
+            initialMax={ranges.max}
+          />
+        ) : (
+          <p>No rank data found.</p>
+        )}
       </div>
     </section>
   );
