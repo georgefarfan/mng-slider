@@ -20,9 +20,24 @@ const RangeSlider = ({
 
   const getRangeValue = (value: number) => {
     if (!sortedRangeValues.length) return value;
-    return sortedRangeValues.reduce((prev, curr) =>
-      Math.abs(curr - value) < Math.abs(prev - value) ? curr : prev
-    );
+
+    let currentValue = value;
+
+    if (isDragging === "min") {
+      let values = sortedRangeValues.filter((v) => v < value);
+      currentValue = values.reduce((prev, curr) =>
+        Math.abs(curr - value) < Math.abs(prev - value) ? curr : prev
+      );
+    }
+
+    if (isDragging === "max") {
+      let values = sortedRangeValues.filter((v) => v < value);
+      currentValue = values.reduce((prev, curr) =>
+        Math.abs(curr - value) < Math.abs(prev - value) ? curr : prev
+      );
+    }
+
+    return currentValue;
   };
 
   const [minRange, setMinRange] = useState(initialMin);
@@ -84,11 +99,11 @@ const RangeSlider = ({
     );
 
     if (isDragging === "min") {
-      if (Math.min(newValue, max - 1) >= minRange) {
+      if (Math.min(newValue, max - 1) >= minRange && newValue < maxRange) {
         setMin(Math.min(newValue, max - 1));
       }
     } else {
-      if (Math.max(newValue, min + 1) <= maxRange) {
+      if (Math.max(newValue, min + 1) <= maxRange && newValue > minRange) {
         setMax(Math.max(newValue, min + 1));
       }
     }
