@@ -11,4 +11,5 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Exercise 1: Range Slider
 - Jest testing
+- Exercise 2: Fixed Range Slider
 

@@ -4,11 +4,27 @@ import "./RangeSlider.css";
 export interface IRangeSliderProps {
   initialMin: number;
   initialMax: number;
+  rangeValues?: number[];
 }
 
 type DraggingType = "min" | "max" | null;
 
-const RangeSlider = ({ initialMin, initialMax }: IRangeSliderProps) => {
+const RangeSlider = ({
+  initialMin,
+  initialMax,
+  rangeValues,
+}: IRangeSliderProps) => {
+  const sortedRangeValues = rangeValues
+    ? [...rangeValues].sort((a, b) => a - b)
+    : [];
+
+  const getRangeValue = (value: number) => {
+    if (!sortedRangeValues.length) return value;
+    return sortedRangeValues.reduce((prev, curr) =>
+      Math.abs(curr - value) < Math.abs(prev - value) ? curr : prev
+    );
+  };
+
   const [minRange, setMinRange] = useState(initialMin);
   const [maxRange, setMaxRange] = useState(initialMax);
 
@@ -23,10 +39,8 @@ const RangeSlider = ({ initialMin, initialMax }: IRangeSliderProps) => {
 
   const handleMinChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const inputValue = e.target.value;
-
     if (/^\d*$/.test(inputValue)) {
-      const numericValue = Number(inputValue);
-
+      const numericValue = getRangeValue(Number(inputValue));
       if (numericValue < maxRange) {
         setMin(numericValue);
         setMinRange(numericValue);
@@ -36,10 +50,8 @@ const RangeSlider = ({ initialMin, initialMax }: IRangeSliderProps) => {
 
   const handleMaxChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const inputValue = e.target.value;
-
     if (/^\d*$/.test(inputValue)) {
-      const numericValue = Number(inputValue);
-
+      const numericValue = getRangeValue(Number(inputValue));
       if (numericValue > minRange) {
         setMax(numericValue);
         setMaxRange(numericValue);
@@ -67,8 +79,8 @@ const RangeSlider = ({ initialMin, initialMax }: IRangeSliderProps) => {
         trackRef.current.offsetWidth) *
       100;
 
-    const newValue = Math.round(
-      (newPosition / 100) * (maxRange - minRange) + minRange
+    const newValue = getRangeValue(
+      Math.round((newPosition / 100) * (maxRange - minRange) + minRange)
     );
 
     if (isDragging === "min") {
