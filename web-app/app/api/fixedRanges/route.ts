@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 
-const URL_FIXED_RANGES = "http://localhost:3000/fixedRanges";
+const URL_FIXED_RANGES = `${process.env.NEXT_PUBLIC_API_BASE_URL}/fixedRanges`;
 
 export async function GET() {
   try {
