@@ -1,10 +1,10 @@
 import { IFixedRange, IRange } from "../types/range";
 
-const BASE_URL = process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:4200";
-
 export async function getRanges(): Promise<IRange> {
   try {
-    const response = await fetch(`${BASE_URL}/ranges`);
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_SITE_URL}/api/ranges`
+    );
     if (!response.ok) {
       throw new Error("Error fetching ranges");
     }
@@ -16,7 +16,9 @@ export async function getRanges(): Promise<IRange> {
 
 export async function getFixedRanges(): Promise<IFixedRange> {
   try {
-    const response = await fetch(`${BASE_URL}/fixedRanges`);
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_SITE_URL}/api/fixedRanges`
+    );
     if (!response.ok) {
       throw new Error("Error fetching fixed ranges");
     }

@@ -35,16 +35,21 @@ const RangeSlider = ({
 
     if (isDragging === "min") {
       let values = sortedRangeValues.filter((v) => v < value);
-      currentValue = values.reduce((prev, curr) =>
-        Math.abs(curr - value) < Math.abs(prev - value) ? curr : prev
-      );
+
+      if (values && values.length > 0) {
+        currentValue = values.reduce((prev, curr) =>
+          Math.abs(curr - value) < Math.abs(prev - value) ? curr : prev
+        );
+      }
     }
 
     if (isDragging === "max") {
       let values = sortedRangeValues.filter((v) => v < value);
-      currentValue = values.reduce((prev, curr) =>
-        Math.abs(curr - value) < Math.abs(prev - value) ? curr : prev
-      );
+      if (values && values.length > 0) {
+        currentValue = values.reduce((prev, curr) =>
+          Math.abs(curr - value) < Math.abs(prev - value) ? curr : prev
+        );
+      }
     }
 
     return currentValue;
