@@ -14,7 +14,7 @@ export default function Exercise1Page() {
         const data = await getRanges();
         setRanges(data);
       } catch (error) {
-        console.error("Error al obtener los rangos:", error);
+        console.error("Error in obtaining ranks:", error);
       }
     };
 
@@ -27,7 +27,7 @@ export default function Exercise1Page() {
       {ranges ? (
         <RangeSlider initialMin={ranges.min} initialMax={ranges.max} />
       ) : (
-        <p>No se encontraron datos de rangos.</p>
+        <p>No rank data found.</p>
       )}
     </section>
   );

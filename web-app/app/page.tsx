@@ -1,16 +1,15 @@
-import Link from 'next/link';
+import Link from "next/link";
 
 export default function HomePage() {
   return (
     <section>
-      <h1>Página de Inicio</h1>
-      <p>Explora los ejercicios:</p>
+      <h1>Home Page</h1>
       <ul>
         <li>
-          <Link href="/exercise1">Ejercicio 1</Link>
+          <Link href="/exercise1">Exercise 1</Link>
         </li>
         <li>
-          <Link href="/exercise2">Ejercicio 2</Link>
+          <Link href="/exercise2">Exercise 2</Link>
         </li>
       </ul>
     </section>
