@@ -30,7 +30,7 @@ export default function Exercise2Page() {
 
   return (
     <section>
-      <h2>Exercise 2</h2>
+      <p>Ranges values: {rangeValues?.join(", ") || "No values"}</p>
       <div className="container">
         {ranges ? (
           <RangeSlider

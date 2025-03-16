@@ -3,8 +3,7 @@ import Link from "next/link";
 export default function HomePage() {
   return (
     <section>
-      <h1>Home Page</h1>
-      <ul>
+      <ul className="list">
         <li>
           <Link href="/exercise1">Exercise 1</Link>
         </li>

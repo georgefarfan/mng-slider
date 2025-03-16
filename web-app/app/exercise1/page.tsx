@@ -23,7 +23,6 @@ export default function Exercise1Page() {
 
   return (
     <section>
-      <h2>Exercise 1 </h2>
       {ranges ? (
         <RangeSlider initialMin={ranges.min} initialMax={ranges.max} />
       ) : (

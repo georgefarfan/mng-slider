@@ -9,7 +9,7 @@ export default function RootLayout({
     <html lang="es">
       <body>
         <header>
-          <h1>MNG App test</h1>
+          <h3>MNG App test</h3>
         </header>
         <main>{children}</main>
       </body>
