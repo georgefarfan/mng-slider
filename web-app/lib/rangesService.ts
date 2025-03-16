@@ -1,9 +1,9 @@
-import { IFixedRange, IRange } from "../types/range";
+import { IFixedRange, IRange } from "./types/range";
 
 export async function getRanges(): Promise<IRange> {
   try {
     const response = await fetch(
-      `${process.env.NEXT_PUBLIC_SITE_URL}/api/ranges`
+      `${process.env.NEXT_PUBLIC_API_BASE_URL}/ranges`
     );
     if (!response.ok) {
       throw new Error("Error fetching ranges");
@@ -17,7 +17,7 @@ export async function getRanges(): Promise<IRange> {
 export async function getFixedRanges(): Promise<IFixedRange> {
   try {
     const response = await fetch(
-      `${process.env.NEXT_PUBLIC_SITE_URL}/api/fixedRanges`
+      `${process.env.NEXT_PUBLIC_API_BASE_URL}/fixedRanges`
     );
     if (!response.ok) {
       throw new Error("Error fetching fixed ranges");

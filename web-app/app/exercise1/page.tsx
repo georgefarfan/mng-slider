@@ -1,7 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
 import { getRanges } from "@lib/rangesService";
-import RangeSlider from "../ui/RangeSlider/RangeSlider";
+import RangeSlider from "@ui/RangeSlider/RangeSlider";
 
 export default function Exercise1Page() {
   const [ranges, setRanges] = useState<{ min: number; max: number } | null>(
