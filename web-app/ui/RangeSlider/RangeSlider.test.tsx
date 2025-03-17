@@ -23,34 +23,34 @@ describe("RangeSlider Component", () => {
       expect(minLabel.value).toBe(mockRangeProps.initialMin.toString());
     });
 
-    it("should update min value via input", () => {
+    it("should update min value via input and apply on Enter", () => {
       const minInput = screen.getByTestId("minRange") as HTMLInputElement;
-      expect(minInput).toBeInTheDocument();
       fireEvent.change(minInput, { target: { value: "10" } });
-      const elements = screen.getAllByText("10");
-      expect(elements).toHaveLength(1);
+      fireEvent.keyDown(minInput, { key: "Enter" });
+
+      expect(minInput.value).toBe("10");
     });
 
-    it("should update max value via input", () => {
-      const maxInput = screen.getByTestId("maxRange") as HTMLInputElement;
-      expect(maxInput).toBeInTheDocument();
-      fireEvent.change(maxInput, { target: { value: "70" } });
-      expect(maxInput.value).toBe("70");
-    });
-
-    it("should prevent setting min value greater than max value", () => {
+    it("should reset min value to previous valid value on blur", () => {
       const minInput = screen.getByTestId("minRange") as HTMLInputElement;
-      expect(minInput).toBeInTheDocument();
-
       fireEvent.change(minInput, { target: { value: "200" } });
+      fireEvent.blur(minInput);
 
       expect(minInput.value).toBe(mockRangeProps.initialMin.toString());
     });
 
-    it("should prevent setting max value less than min value", () => {
-      const maxInput = screen.getByDisplayValue("100") as HTMLInputElement;
+    it("should update max value via input and apply on Enter", () => {
+      const maxInput = screen.getByTestId("maxRange") as HTMLInputElement;
+      fireEvent.change(maxInput, { target: { value: "70" } });
+      fireEvent.keyDown(maxInput, { key: "Enter" });
 
+      expect(maxInput.value).toBe("70");
+    });
+
+    it("should reset max value to previous valid value on blur", () => {
+      const maxInput = screen.getByDisplayValue("100") as HTMLInputElement;
       fireEvent.change(maxInput, { target: { value: "3" } });
+      fireEvent.blur(maxInput);
 
       expect(maxInput.value).toBe("100");
     });
@@ -77,7 +77,6 @@ describe("RangeSlider Component", () => {
       const minHandle = screen.getByTestId("minHandle");
 
       fireEvent.mouseDown(minHandle);
-
       fireEvent.mouseMove(window, { clientX: 200 });
 
       await waitFor(() => {
@@ -108,7 +107,6 @@ describe("RangeSlider Component", () => {
       const maxHandle = screen.getByTestId("maxHandle");
 
       fireEvent.mouseDown(maxHandle);
-
       fireEvent.mouseMove(window, { clientX: 102 });
 
       await waitFor(() => {
@@ -118,7 +116,7 @@ describe("RangeSlider Component", () => {
     });
   });
 
-  describe("Fixed Range slider ", () => {
+  describe("Fixed Range slider", () => {
     beforeEach(() => {
       render(<RangeSlider {...mockFixedRangesProps} />);
     });
@@ -157,7 +155,6 @@ describe("RangeSlider Component", () => {
       const minHandle = screen.getByTestId("minHandle");
 
       fireEvent.mouseDown(minHandle);
-
       fireEvent.mouseMove(window, { clientX: 200 });
 
       await waitFor(() => {
@@ -190,7 +187,6 @@ describe("RangeSlider Component", () => {
       const maxHandle = screen.getByTestId("maxHandle");
 
       fireEvent.mouseDown(maxHandle);
-
       fireEvent.mouseMove(window, { clientX: 160 });
 
       await waitFor(() => {

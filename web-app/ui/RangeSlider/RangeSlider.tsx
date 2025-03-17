@@ -20,6 +20,9 @@ const RangeSlider = ({
   const [min, setMin] = useState(initialMin);
   const [max, setMax] = useState(initialMax);
 
+  const [tempMin, setTempMin] = useState(String(initialMin));
+  const [tempMax, setTempMax] = useState(String(initialMax));
+
   const [isDragging, setIsDragging] = useState<DraggingType>(null);
 
   const trackRef = useRef<HTMLDivElement>(null);
@@ -58,25 +61,39 @@ const RangeSlider = ({
   const calculatePosition = (value: number): number =>
     ((value - minRange) / (maxRange - minRange)) * 100;
 
-  const handleMinChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
-    const inputValue = e.target.value;
-    if (/^\d*$/.test(inputValue)) {
-      const numericValue = getRangeValue(Number(inputValue));
-      if (numericValue < maxRange) {
-        setMin(numericValue);
-        setMinRange(numericValue);
-      }
+  const handleTempMinChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setTempMin(e.target.value);
+  };
+
+  const handleTempMaxChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setTempMax(e.target.value);
+  };
+
+  const handleMinEnter = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Enter") applyMinValue();
+  };
+
+  const handleMaxEnter = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Enter") applyMaxValue();
+  };
+
+  const applyMinValue = () => {
+    const numericValue = getRangeValue(Number(tempMin));
+    if (!isNaN(numericValue) && numericValue < maxRange) {
+      setMin(numericValue);
+      setMinRange(numericValue);
+    } else {
+      setTempMin(String(min));
     }
   };
 
-  const handleMaxChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
-    const inputValue = e.target.value;
-    if (/^\d*$/.test(inputValue)) {
-      const numericValue = getRangeValue(Number(inputValue));
-      if (numericValue > minRange) {
-        setMax(numericValue);
-        setMaxRange(numericValue);
-      }
+  const applyMaxValue = () => {
+    const numericValue = getRangeValue(Number(tempMax));
+    if (!isNaN(numericValue) && numericValue > minRange) {
+      setMax(numericValue);
+      setMaxRange(numericValue);
+    } else {
+      setTempMax(String(max));
     }
   };
 
@@ -149,10 +166,12 @@ const RangeSlider = ({
               data-testid="minRange"
               inputMode="numeric"
               pattern="[0-9]*"
-              value={minRange}
+              value={tempMin}
               min={minRange}
               max={max - 1}
-              onChange={handleMinChange}
+              onChange={handleTempMinChange}
+              onKeyDown={handleMinEnter}
+              onBlur={applyMinValue}
             />
           ) : (
             <p data-testid="minLabel">{minRange}</p>
@@ -199,10 +218,12 @@ const RangeSlider = ({
               data-testid="maxRange"
               inputMode="numeric"
               pattern="[0-9]*"
-              value={maxRange}
+              value={tempMax}
               min={min + 1}
               max={maxRange}
-              onChange={handleMaxChange}
+              onChange={handleTempMaxChange}
+              onKeyDown={handleMaxEnter}
+              onBlur={applyMaxValue}
             />
           ) : (
             <p data-testid="maxLabel">{maxRange}</p>
