@@ -80,20 +80,61 @@ const RangeSlider = ({
   };
 
   const applyMinValue = () => {
-    const numericValue = getRangeValue(Number(tempMin));
-    if (!isNaN(numericValue) && numericValue < maxRange) {
-      setMin(numericValue);
-      setMinRange(numericValue);
+    const numericValue = Number(tempMin);
+    if (!isNaN(numericValue)) {
+      if (numericValue > maxRange) {
+        setTempMax(String(min));
+        return;
+      }
+
+      if (numericValue < maxRange) {
+        setMin(numericValue);
+        setMinRange(numericValue);
+        setTempMin(String(numericValue));
+      } else if (numericValue >= max) {
+        if (numericValue > minRange) {
+          setMin(minRange);
+        }
+
+        setMin(numericValue);
+        setMaxRange(numericValue);
+        setTempMax(String(numericValue));
+      } else {
+        setMin(numericValue);
+        setMaxRange(numericValue);
+        setTempMax(String(numericValue));
+      }
     } else {
       setTempMin(String(min));
     }
   };
 
   const applyMaxValue = () => {
-    const numericValue = getRangeValue(Number(tempMax));
-    if (!isNaN(numericValue) && numericValue > minRange) {
-      setMax(numericValue);
-      setMaxRange(numericValue);
+    const numericValue = Number(tempMax);
+
+    if (!isNaN(numericValue)) {
+      if (numericValue < minRange) {
+        setTempMax(String(max));
+        return;
+      }
+
+      if (numericValue > maxRange) {
+        setMax(numericValue);
+        setMaxRange(numericValue);
+        setTempMax(String(numericValue));
+      } else if (numericValue <= min) {
+        if (numericValue > minRange) {
+          setMin(minRange);
+        }
+
+        setMax(numericValue);
+        setMaxRange(numericValue);
+        setTempMax(String(numericValue));
+      } else {
+        setMax(numericValue);
+        setMaxRange(numericValue);
+        setTempMax(String(numericValue));
+      }
     } else {
       setTempMax(String(max));
     }

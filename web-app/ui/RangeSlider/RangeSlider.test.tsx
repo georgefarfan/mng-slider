@@ -33,7 +33,7 @@ describe("RangeSlider Component", () => {
 
     it("should reset min value to previous valid value on blur", () => {
       const minInput = screen.getByTestId("minRange") as HTMLInputElement;
-      fireEvent.change(minInput, { target: { value: "200" } });
+      fireEvent.change(minInput, { target: { value: "5" } });
       fireEvent.blur(minInput);
 
       expect(minInput.value).toBe(mockRangeProps.initialMin.toString());
