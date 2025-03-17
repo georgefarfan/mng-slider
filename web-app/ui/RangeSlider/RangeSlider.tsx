@@ -146,6 +146,7 @@ const RangeSlider = ({
         <div className="limit">
           {!rangeValues ? (
             <input
+              data-testid="minRange"
               inputMode="numeric"
               pattern="[0-9]*"
               value={minRange}
@@ -154,11 +155,11 @@ const RangeSlider = ({
               onChange={handleMinChange}
             />
           ) : (
-            <p>{minRange}</p>
+            <p data-testid="minLabel">{minRange}</p>
           )}
         </div>
 
-        <div ref={trackRef} className="track-values">
+        <div ref={trackRef} data-testid="track" className="track-values">
           <div
             className="rangeFill"
             style={{
@@ -169,26 +170,33 @@ const RangeSlider = ({
 
           <div
             className="handle"
+            data-testid="minHandle"
             style={{ left: `${calculatePosition(min)}%` }}
             onMouseDown={handleMouseDown("min")}
             onTouchStart={handleMouseDown("min")}
           >
-            <span className="value-tooltip">{min}</span>
+            <span className="value-tooltip" id="min-tooltip">
+              {min}
+            </span>
           </div>
 
           <div
             className="handle"
+            data-testid="maxHandle"
             style={{ left: `${calculatePosition(max)}%` }}
             onMouseDown={handleMouseDown("max")}
             onTouchStart={handleMouseDown("max")}
           >
-            <span className="value-tooltip">{max}</span>
+            <span className="value-tooltip" id="max-tooltip">
+              {max}
+            </span>
           </div>
         </div>
 
         <div className="limit">
           {!rangeValues ? (
             <input
+              data-testid="maxRange"
               inputMode="numeric"
               pattern="[0-9]*"
               value={maxRange}
@@ -197,7 +205,7 @@ const RangeSlider = ({
               onChange={handleMaxChange}
             />
           ) : (
-            <p>{maxRange}</p>
+            <p data-testid="maxLabel">{maxRange}</p>
           )}
         </div>
       </div>
