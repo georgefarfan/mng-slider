@@ -5,6 +5,7 @@ export interface IRangeSliderProps {
   initialMin: number;
   initialMax: number;
   rangeValues?: number[];
+  currency?: string;
 }
 
 type DraggingType = "min" | "max" | null;
@@ -13,6 +14,7 @@ const RangeSlider = ({
   initialMin,
   initialMax,
   rangeValues,
+  currency,
 }: IRangeSliderProps) => {
   const [minRange, setMinRange] = useState(initialMin);
   const [maxRange, setMaxRange] = useState(initialMax);
@@ -162,17 +164,20 @@ const RangeSlider = ({
       <div className="container">
         <div className="limit">
           {!rangeValues ? (
-            <input
-              data-testid="minRange"
-              inputMode="numeric"
-              pattern="[0-9]*"
-              value={tempMin}
-              min={minRange}
-              max={max - 1}
-              onChange={handleTempMinChange}
-              onKeyDown={handleMinEnter}
-              onBlur={applyMinValue}
-            />
+            <div className="d-flex">
+              <input
+                data-testid="minRange"
+                inputMode="numeric"
+                pattern="[0-9]*"
+                value={tempMin}
+                min={minRange}
+                max={max - 1}
+                onChange={handleTempMinChange}
+                onKeyDown={handleMinEnter}
+                onBlur={applyMinValue}
+              />
+              <span>{currency}</span>
+            </div>
           ) : (
             <p data-testid="minLabel">{minRange}</p>
           )}
@@ -214,17 +219,20 @@ const RangeSlider = ({
 
         <div className="limit">
           {!rangeValues ? (
-            <input
-              data-testid="maxRange"
-              inputMode="numeric"
-              pattern="[0-9]*"
-              value={tempMax}
-              min={min + 1}
-              max={maxRange}
-              onChange={handleTempMaxChange}
-              onKeyDown={handleMaxEnter}
-              onBlur={applyMaxValue}
-            />
+            <div className="d-flex">
+              <input
+                data-testid="maxRange"
+                inputMode="numeric"
+                pattern="[0-9]*"
+                value={tempMax}
+                min={min + 1}
+                max={maxRange}
+                onChange={handleTempMaxChange}
+                onKeyDown={handleMaxEnter}
+                onBlur={applyMaxValue}
+              />
+              <span>{currency}</span>
+            </div>
           ) : (
             <p data-testid="maxLabel">{maxRange}</p>
           )}

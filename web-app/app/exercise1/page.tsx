@@ -24,7 +24,11 @@ export default function Exercise1Page() {
   return (
     <section>
       {ranges ? (
-        <RangeSlider initialMin={ranges.min} initialMax={ranges.max} />
+        <RangeSlider
+          initialMin={ranges.min}
+          initialMax={ranges.max}
+          currency="$"
+        />
       ) : (
         <p>No rank data found.</p>
       )}
